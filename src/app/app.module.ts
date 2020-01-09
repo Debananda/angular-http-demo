@@ -6,6 +6,7 @@ import { AppComponent } from "./app.component";
 import { PostComponent } from "./post/post.component";
 import { PostListComponent } from "./post-list/post-list.component";
 import { SpinnerComponent } from "./spinner/spinner.component";
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -14,7 +15,7 @@ import { SpinnerComponent } from "./spinner/spinner.component";
     PostListComponent,
     SpinnerComponent
   ],
-  imports: [BrowserModule, AppRoutingModule],
+  imports: [BrowserModule, HttpClientModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent]
 })

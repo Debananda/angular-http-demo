@@ -1,14 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import {
-  HttpClient,
-  HttpParams,
-  HttpHeaders,
-  HttpErrorResponse
-} from "@angular/common/http";
-import { map, tap, first, catchError } from "rxjs/operators";
 import { PostService } from "../post.service";
 import { Post } from "../post.model";
 import { Observable } from "rxjs";
+import { tap } from "rxjs/operators";
 
 @Component({
   selector: "app-post-list",
@@ -21,6 +15,24 @@ export class PostListComponent implements OnInit {
   constructor(private postService: PostService) {}
 
   ngOnInit() {
-    this.posts = this.postService.posts;
+    this.loading = true;
+    this.postService
+      .getPosts("https://jsonplaceholder.typicode.com/posts1")
+      .pipe(
+        tap(x => {
+          console.log("here");
+          this.loading = false;
+        })
+      )
+      .subscribe(
+        posts => {
+          this.loading = false;
+          this.posts = posts;
+        },
+        error => {
+          this.loading = false;
+          window.alert(error.message);
+        }
+      );
   }
 }
